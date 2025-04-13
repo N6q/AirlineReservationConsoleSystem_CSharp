@@ -141,18 +141,79 @@ namespace AirlineReservationConsoleSystem_CSharp
                             break;
 
 
-                        //case 2: ViewAllRooms(); break;
-                        //case 3: ReserveRoom(); break;
-                        //case 4: ViewAllReservations(); break;
-                        //case 5: SearchReservationByGuestName(); break;
+                        case 2: DisplayAllFlights(); break;
+
+
+                        case 3: 
+                            Console.WriteLine("\n=== FIND FLIGHT BY CODE ===\n");
+                            
+                            string flightCodeToFind;
+
+                            // Getting Flight Code
+                            do
+                            {
+                                Console.Write("Enter Flight Code: ");
+                                flightCodeToFind = Console.ReadLine().ToUpper();
+                            } while (string.IsNullOrWhiteSpace(flightCodeToFind));
+
+                            if(ConfirmAction("search for flight details"))
+                            {  
+                                 // Searching for Flight
+                                 if (FindFlightByCode(flightCodeToFind))
+                                    {
+                                        Console.WriteLine($"\nFlight {flightCodeToFind} found!");
+                                    }
+                                 else
+                                    {
+                                        Console.WriteLine($"\nFlight {flightCodeToFind} not found.");
+                                    }
+                            }
+                           
+                            break;
+
+                        case 4:
+                            Console.WriteLine("\n=== UPDATE FLIGHT DEPARTURE ===\n");
+
+                            string flightCodeToUpdate;
+                            do
+                            {
+                                Console.Write("Enter Flight Code to update: ");
+                                flightCodeToUpdate = Console.ReadLine().ToUpper();
+                            } while (string.IsNullOrWhiteSpace(flightCodeToUpdate));
+
+                            // Find the flight and get its index
+                            int flightIndex = -1;
+                            for (int i = 0; i < flightCount; i++)
+                            {
+                                if (flightCodes[i] == flightCodeToUpdate)
+                                {
+                                    flightIndex = i;
+                                    break;
+                                }
+                            }
+
+                            if (flightIndex >= 0)
+                            {
+                                // Pass the departure time by reference
+                                UpdateFlightDeparture(ref departureTimes[flightIndex]);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"\nError: Flight {flightCodeToUpdate} not found.");
+                                Console.WriteLine("\nPress Enter to continue...");
+                                Console.ReadLine();
+                            }
+                            break;
+
+                        //case 5: BookFlight(); break;
                         //case 6: highestPayingGuest(); break;
                         //case 7: CancelReservation(); break;
-                        //case 0: return;
+                        //case 8: return; 
                         default: Console.WriteLine("Invalid choice! Try again."); break;
                     }
                 }
                 catch (FormatException)
-                {
+                { 
                     // Handle invalid input
                     Console.WriteLine("Invalid input format. Please enter a number.");
                 }
@@ -167,9 +228,9 @@ namespace AirlineReservationConsoleSystem_CSharp
 
         }
 
-        static void ExitApplication()
+        public static void ExitApplication()
         {
-            // Implementation
+
         }
 
         public static void AddFlight(string flightCode, string fromCity1, string toCity1, DateTime departureTime, int duration)
@@ -220,10 +281,7 @@ namespace AirlineReservationConsoleSystem_CSharp
                     Console.WriteLine($"\n✓ Flight {flightCode} added successfully!");
                     Console.WriteLine($"Total flights: {flightCount}/{MAX_FLIGHTS}");
                 }
-                else
-                {
-                    Console.WriteLine("\n✗ Flight addition cancelled");
-                }
+                
             }
             catch (Exception ex)
             {
@@ -239,18 +297,92 @@ namespace AirlineReservationConsoleSystem_CSharp
         /* -------------------------- Flight Management Functions -------------------------- */
         static void DisplayAllFlights()
         {
-            // Implementation
+            for(int i = 0; i < flightCount; i++)
+            {
+               if( ConfirmAction("view all flights details"));
+                {
+                    
+                    Console.WriteLine($"\nFlight Code: {flightCodes[i]}");
+                    Console.WriteLine($"From: {fromCity[i]}");
+                    Console.WriteLine($"To: {toCity[i]}");
+                    Console.WriteLine($"Departure: {departureTimes[i].ToString("yyyy-MM-dd HH:mm")}");
+                    Console.WriteLine($"Duration: {durations[i]} minutes ({durations[i] / 60}h {durations[i] % 60}m)");
+
+                }
+            }
         }
 
         static bool FindFlightByCode(string code)
         {
-            // Implementation
-            return false; // placeholder
+            for(int i = 0; i < flightCount; i++)
+            {
+                if (flightCodes[i]==code)
+                {
+                    int index = i;
+                    Console.WriteLine($"\nFlight Code: {flightCodes[index]}");
+                    Console.WriteLine($"From: {fromCity[index]}");
+                    Console.WriteLine($"To: {toCity[index]}");
+                    Console.WriteLine($"Departure: {departureTimes[index].ToString("yyyy-MM-dd HH:mm")}");
+                    Console.WriteLine($"Duration: {durations[index]} minutes ({durations[index] / 60}h {durations[index] % 60}m)");
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            return false;
         }
 
         static void UpdateFlightDeparture(ref DateTime departure)
         {
-            // Implementation
+            try
+            {
+                Console.Clear();
+                Console.WriteLine("\n=== UPDATE FLIGHT DEPARTURE ===\n");
+
+                // Display current departure time
+                Console.WriteLine($"Current departure time: {departure.ToString("yyyy-MM-dd HH:mm")}");
+
+                // Get new departure time with validation
+                DateTime newDeparture;
+                bool validTime;
+                do
+                {
+                    Console.Write("Enter new departure time (yyyy-mm-dd hh:mm): ");
+                    validTime = DateTime.TryParse(Console.ReadLine(), out newDeparture);
+
+                    if (!validTime)
+                    {
+                        Console.WriteLine("Invalid date format. Please try again.");
+                    }
+                    else if (newDeparture < DateTime.Now)
+                    {
+                        Console.WriteLine("Departure time must be in the future. Please try again.");
+                    }
+                } while (!validTime || newDeparture < DateTime.Now);
+
+                // Confirm update
+                if (ConfirmAction($"update departure time to {newDeparture.ToString("yyyy-MM-dd HH:mm")}"))
+                {
+                    departure = newDeparture;
+                    Console.WriteLine($"\n✓ Departure time updated successfully!");
+                    Console.WriteLine($"New departure: {departure.ToString("yyyy-MM-dd HH:mm")}");
+                }
+                else
+                {
+                    Console.WriteLine("\n✗ Departure time update cancelled.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nError: {ex.Message}");
+            }
+
+            Console.WriteLine("\nPress Enter to continue...");
+            Console.ReadLine();
         }
 
         static void CancelFlightBooking(out string passengerName)
@@ -262,7 +394,8 @@ namespace AirlineReservationConsoleSystem_CSharp
         /* -------------------------- Passenger Booking Functions -------------------------- */
         static void BookFlight(string passengerName, string flightCode = "Default001")
         {
-            // Implementation with optional parameter
+
+            
         }
 
         static bool ValidateFlightCode(string flightCode)
@@ -309,7 +442,7 @@ namespace AirlineReservationConsoleSystem_CSharp
         /* -------------------------- System Utilities -------------------------- */
         static bool ConfirmAction(string action)
         {
-            Console.Clear();
+            
             Console.WriteLine($"Are you sure you want to {action}? (Y/N)");
             char keyInfo = Console.ReadKey().KeyChar;
 
