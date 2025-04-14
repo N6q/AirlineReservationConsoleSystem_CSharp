@@ -5,42 +5,57 @@ namespace AirlineReservationConsoleSystem_CSharp
     internal class Program
     {
         // Global variables and data storage
-        static int MAX_FLIGHTS = 2;
-        static int MAX_BOOKINGS = 2;
-        static string[] flightCodes = new string[MAX_FLIGHTS];
-        static string[] fromCity = new string[MAX_FLIGHTS];
-        static string[] toCity = new string[MAX_FLIGHTS];
-        static DateTime[] departureTimes = new DateTime[MAX_FLIGHTS];
-        static int[] durations = new int[MAX_FLIGHTS];
-        static string[] passengerNames = new string[MAX_BOOKINGS];
-        static string[] bookingIDs = new string[MAX_BOOKINGS];
-        static double[] prices = new double[MAX_FLIGHTS];
-        static double[] totalPrices = new double[MAX_BOOKINGS];
-        static string[] discountCodes = { "SAVE10", "SAVE20", "SAVE15" }; 
-        static double[] discountValues = { 0.10, 0.20, 0.15 }; 
-        static int flightCount = 0;
-        static int bookingCount = 0;
+        private const int MAX_FLIGHTS = 2; // Maximum number of flights the system can handle
+        private const int MAX_BOOKINGS = 2; // Maximum number of bookings the system can handle
 
+        // Arrays to store flight-related information
+        private static readonly string[] flightCodes = new string[MAX_FLIGHTS];
+        private static readonly string[] fromCity = new string[MAX_FLIGHTS];
+        private static readonly string[] toCity = new string[MAX_FLIGHTS];
+        private static readonly DateTime[] departureTimes = new DateTime[MAX_FLIGHTS];
+        private static readonly int[] durations = new int[MAX_FLIGHTS];
+        private static readonly double[] prices = new double[MAX_FLIGHTS];
+
+        // Arrays to store booking-related information
+        private static readonly string[] passengerNames = new string[MAX_BOOKINGS];
+        private static readonly string[] bookingIDs = new string[MAX_BOOKINGS];
+        private static readonly double[] totalPrices = new double[MAX_BOOKINGS];
+
+        // Discount codes and their corresponding discount values
+        private static readonly string[] discountCodes = { "SAVE10", "SAVE20", "SAVE15" };
+        private static readonly double[] discountValues = { 0.10, 0.20, 0.15 };
+
+        // Counters to track the number of flights and bookings
+        private static int flightCount = 0;
+        private static int bookingCount = 0;
+
+        // Entry point of the application
         static void Main(string[] args)
         {
             StartSystem();
         }
 
-        /* -------------------------- Startup & Navigation Functions -------------------------- */
+
+        /* ====================== Startup & Navigation Functions ====================== */
         static void DisplayWelcomeMessage()
         {
-            string welcomeMessage = "Welcome to the Airline Reservation System!";
+            Console.WriteLine("========================================================");
+            Console.WriteLine("||      WELCOME TO AIRLINE RESERVATION SYSTEM         ||");
+            Console.WriteLine("========================================================");
+            Console.WriteLine("||                                                    ||");
+            Console.WriteLine("|| Please select an option:                           ||");
+            Console.WriteLine("||                                                    ||");
+            Console.WriteLine("|| 1. Start Application                               ||");
+            Console.WriteLine("|| 2. Exit Application                                ||");
+            Console.WriteLine("||                                                    ||");
+            Console.WriteLine("========================================================");
+            Console.Write("Enter your choice: ");
 
             int choice;
             bool on = true;
 
             do
             {
-                Console.Clear();
-                Console.WriteLine(welcomeMessage);
-                Console.WriteLine("1. Start Application");
-                Console.WriteLine("2. Exit Application");
-                Console.Write("Enter your choice: ");
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
                 {
@@ -61,23 +76,30 @@ namespace AirlineReservationConsoleSystem_CSharp
 
         }
 
+        // Displays the main menu and handles user navigation
+
         static int ShowMainMenu()
         {
             // Main menu loop
             while (true)
             {
                 Console.Clear();
-                // Display menu options
-                Console.WriteLine("\nChoose an Array Exercise:");
-                Console.WriteLine("1. Add a new Flight ");
-                Console.WriteLine("2. View all Flights (Available) ");
-                Console.WriteLine("3. Find Flight by Code ");
-                Console.WriteLine("4. Update Flight Departure ");
-                Console.WriteLine("5. Cancel Flight Booking ");
-                Console.WriteLine("6. Book Flight  ");
-                Console.WriteLine("7. Display Flight Details ");
-                Console.WriteLine("8. Search Bookings by Destination ");
-                Console.WriteLine("0. Exit Application");
+                Console.WriteLine("========================================================");
+                Console.WriteLine("||               MAIN MENU - AIRLINE SYSTEM           ||");
+                Console.WriteLine("========================================================");
+                Console.WriteLine("||                                                    ||");
+                Console.WriteLine("|| 1. Add a New Flight                                ||");
+                Console.WriteLine("|| 2. View All Available Flights                      ||");
+                Console.WriteLine("|| 3. Find Flight by Code                             ||");
+                Console.WriteLine("|| 4. Update Flight Departure Time                    ||");
+                Console.WriteLine("|| 5. Cancel Flight Booking                           ||");
+                Console.WriteLine("|| 6. Book Flight                                     ||");
+                Console.WriteLine("|| 7. Display Flight Details                          ||");
+                Console.WriteLine("|| 8. Search Bookings by Destination                  ||");
+                Console.WriteLine("|| 0. Exit Application                                ||");
+                Console.WriteLine("||                                                    ||");
+                Console.WriteLine("========================================================");
+
                 Console.Write("Enter your choice: ");
 
                 try
@@ -92,14 +114,15 @@ namespace AirlineReservationConsoleSystem_CSharp
                         case 1:
                             try
                             {
-                                Console.Clear();
-                                Console.WriteLine("\n=== ADD NEW FLIGHT ===\n");
+                                Console.WriteLine("╔══════════════════════════════════════════════════╗");
+                                Console.WriteLine("║               ADD NEW FLIGHT                     ║");
+                                Console.WriteLine("╚══════════════════════════════════════════════════╝");
 
                                 // Getting Flight Code 
                                 string flightCode;
                                 do
                                 {
-                                    Console.Write("Enter Flight Code: ");
+                                    Console.Write("\n✈ Enter Flight Code (e.g., FL123): ");
                                     flightCode = Console.ReadLine().Trim().ToUpper();
                                 } while (string.IsNullOrWhiteSpace(flightCode));
 
@@ -303,11 +326,19 @@ namespace AirlineReservationConsoleSystem_CSharp
 
         public static void ExitApplication()
         {
-            Console.WriteLine("Exiting the application...");
+            Console.Clear();
+            Console.WriteLine("========================================================");
+            Console.WriteLine("||               THANK YOU FOR USING                   ||");
+            Console.WriteLine("||          AIRLINE RESERVATION SYSTEM                 ||");
+            Console.WriteLine("========================================================");
+            Console.WriteLine("\nExiting the application...");
             Environment.Exit(0);
 
         }
 
+        /* ====================== Flight Management Functions ====================== */
+
+        // Adds a new flight to the system
         public static void AddFlight(string flightCode, string fromCity1, string toCity1, DateTime departureTime, int duration, double flightPrice)
         {
             try
@@ -341,7 +372,9 @@ namespace AirlineReservationConsoleSystem_CSharp
                     $"Duration: {duration} minutes ({duration / 60}h {duration % 60}m)\n"+
                     $"Flight price: {flightPrice}";
 
-                Console.WriteLine("\n=== FLIGHT DETAILS ===");
+                Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                Console.WriteLine("║                     Flight Details                     ║");
+                Console.WriteLine("╚════════════════════════════════════════════════════════╝");
 
                 Console.WriteLine(flightDetails);
                 if (ConfirmAction("add this flight"))
@@ -374,20 +407,23 @@ namespace AirlineReservationConsoleSystem_CSharp
         /* -------------------------- Flight Management Functions -------------------------- */
         public static void DisplayAllFlights()
         {
-            Console.WriteLine("\n=== AVAILABLE FLIGHTS ===");
+            Console.Clear();
+            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║               AVAILABLE FLIGHTS SCHEDULE               ║");
+            Console.WriteLine("╠════════════╦══════════╦══════════╦═════════════════════╣");
+            Console.WriteLine("║ Flight Code║ Departure║ Arrival  ║   Departure Time    ║");
+            Console.WriteLine("╠════════════╬══════════╬══════════╬═════════════════════╣");
             for (int i = 0; i < flightCount; i++)
             {
-                if (string.IsNullOrEmpty(passengerNames[i])) 
+                if (string.IsNullOrEmpty(passengerNames[i]))
                 {
-                    Console.WriteLine($"\nFlight Code: {flightCodes[i]}");
-                    Console.WriteLine($"From: {fromCity[i]}");
-                    Console.WriteLine($"To: {toCity[i]}");
-                    Console.WriteLine($"Departure: {departureTimes[i].ToString("yyyy-MM-dd HH:mm")}");
-                    Console.WriteLine($"Duration: {durations[i]} minutes ({durations[i] / 60}h {durations[i] % 60}m)");
-                    Console.WriteLine($"Price: {prices[i]:C}");
-                    Console.WriteLine("------------------------");
+                    Console.WriteLine($"║ {flightCodes[i],-10} ║ {fromCity[i],-8} ║ {toCity[i],-8} ║ {departureTimes[i].ToString("yyyy-MM-dd HH:mm"),-13}    ║");
                 }
             }
+
+            Console.WriteLine("╚════════════╩══════════╩══════════╩═════════════════════╝");
+            Console.WriteLine("\nPress Enter to return to main menu...");
+            Console.ReadLine();
         }
 
         public static bool FindFlightByCode(string code)
