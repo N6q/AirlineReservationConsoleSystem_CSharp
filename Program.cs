@@ -507,7 +507,7 @@ namespace AirlineReservationConsoleSystem_CSharp
                 return;
             }
 
-            for (int i = 0; i < flightCount; i++)
+            for (int i = 0; i < MAX_BOOKINGS; i++)
             {
                 if (flightCodes[i] == flightCode)
                 {
@@ -545,15 +545,7 @@ namespace AirlineReservationConsoleSystem_CSharp
                         // Calculate total price
                         double basePrice = prices[i];
                         double totalPrice;
-
-                        if (!string.IsNullOrEmpty(discountCode))
-                        {
-                            totalPrice = CalculateFare(basePrice, numTickets, discountApplied);
-                        }
-                        else
-                        {
-                            totalPrice = CalculateFare(basePrice, numTickets);
-                        }
+                        totalPrice = CalculateFare(basePrice, numTickets, discountApplied);
 
 
 
@@ -670,16 +662,18 @@ namespace AirlineReservationConsoleSystem_CSharp
             Console.ReadLine();
         }
 
-        static void SearchBookingsByDestination(string toCity)
+        static void SearchBookingsByDestination(string destination)
         {
-            Console.WriteLine($"\n=== SEARCH BOOKINGS BY DESTINATION: {toCity} ===\n");
+            Console.WriteLine($"\n=== SEARCH BOOKINGS BY DESTINATION: {destination} ===\n");
             bool found = false;
             for (int i = 0; i < flightCount; i++)
             {
-                if (toCity[i] == toCity)
+                if (toCity[i] == destination)
                 {
+                    
                     found = true;
                     Console.WriteLine($"Flight Code: {flightCodes[i]}");
+                    Console.WriteLine($"From: {fromCity[i]} → To: {toCity[i]}");
                     Console.WriteLine($"Passenger Name: {passengerNames[i]}");
                     Console.WriteLine($"Booking ID: {bookingIDs[i]}");
                     Console.WriteLine($"Total Price Paid: {totalPrices[i]:C}");
@@ -688,7 +682,7 @@ namespace AirlineReservationConsoleSystem_CSharp
             }
             if (!found)
             {
-                Console.WriteLine($"No bookings found for destination: {toCity}");
+                Console.WriteLine($"No bookings found for destination: {destination}");
             }
             Console.WriteLine("\nPress Enter to return to main menu...");
             Console.ReadLine();
@@ -696,7 +690,7 @@ namespace AirlineReservationConsoleSystem_CSharp
         }
 
         /* -------------------------- Overloaded Functions -------------------------- */
-        static int CalculateFare(int basePrice, int numTickets)
+        public static int CalculateFare(int basePrice, int numTickets)
         {
             // Calculate total fare
             int total = basePrice * numTickets;
@@ -704,14 +698,14 @@ namespace AirlineReservationConsoleSystem_CSharp
             return total;
          
         }
-        static double CalculateFare(double basePrice, int numTickets)
+        public static double CalculateFare(double basePrice, int numTickets)
         {
             // Calculate total fare
             double total = basePrice * numTickets;
 
             return total;
         }
-        static double CalculateFare(double basePrice, int numTickets, double discount = 0)
+        public static double CalculateFare(double basePrice, int numTickets, double discount = 0)
         {
             double subtotal = basePrice * numTickets;
             double discountAmount = subtotal * discount;
