@@ -695,8 +695,11 @@ namespace AirlineReservationConsoleSystem_CSharp
         public static void DisplayFlightDetails(string code)
         {
             Console.Clear();
-            Console.WriteLine("\n=== FLIGHT DETAILS ===\n");
+            Console.WriteLine("\n\n");
 
+            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                    FLIGHT DETAILS                      ║");
+            Console.WriteLine("╠════════════════════════════════════════════════════════╣");
             bool flightFound = false;
 
             for (int i = 0; i < flightCount; i++)
@@ -715,11 +718,14 @@ namespace AirlineReservationConsoleSystem_CSharp
                     // Display booking status and pricing
                     if (!string.IsNullOrEmpty(passengerNames[i]))
                     {
-                        Console.WriteLine("\n=== BOOKING INFORMATION ===");
+                        Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                        Console.WriteLine("║                 BOOKING INFORMATION                    ║");
+                        Console.WriteLine("╠════════════════════════════════════════════════════════╣");
                         Console.WriteLine($"Status: Booked");
                         Console.WriteLine($"Passenger: {passengerNames[i]}");
                         Console.WriteLine($"Booking ID: {bookingIDs[i]}");
                         Console.WriteLine($"Total Price Paid: {totalPrices[i]:C}");
+
 
                         // Check if discount was applied
                         if (prices[i] > totalPrices[i])
@@ -727,12 +733,15 @@ namespace AirlineReservationConsoleSystem_CSharp
                             double discountAmount = prices[i] - totalPrices[i];
                             Console.WriteLine($"Discount Applied: {discountAmount:C} ({(discountAmount / prices[i]):P})");
                         }
+
+
                     }
                     else
                     {
                         Console.WriteLine("\nStatus: Available for booking");
                         Console.WriteLine("No current bookings for this flight");
                     }
+
 
                     break;
                 }
@@ -743,13 +752,15 @@ namespace AirlineReservationConsoleSystem_CSharp
                 Console.WriteLine($"\nFlight with code {code} not found.");
             }
 
+            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+
             Console.WriteLine("\nPress Enter to return to main menu...");
             Console.ReadLine();
         }
 
         static void SearchBookingsByDestination(string destination)
         {
-            Console.WriteLine($"\n=== SEARCH BOOKINGS BY DESTINATION: {destination} ===\n");
+            Console.WriteLine($"\n\n");
             bool found = false;
             for (int i = 0; i < flightCount; i++)
             {
@@ -767,6 +778,7 @@ namespace AirlineReservationConsoleSystem_CSharp
             }
             if (!found)
             {
+
                 Console.WriteLine($"No bookings found for destination: {destination}");
             }
             Console.WriteLine("\nPress Enter to return to main menu...");
