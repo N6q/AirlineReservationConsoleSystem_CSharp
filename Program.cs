@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace AirlineReservationConsoleSystem_CSharp
 {
 
@@ -39,16 +40,16 @@ namespace AirlineReservationConsoleSystem_CSharp
         /* ====================== Startup & Navigation Functions ====================== */
         static void DisplayWelcomeMessage()
         {
-            Console.WriteLine("========================================================");
-            Console.WriteLine("||      WELCOME TO AIRLINE RESERVATION SYSTEM         ||");
-            Console.WriteLine("========================================================");
-            Console.WriteLine("||                                                    ||");
-            Console.WriteLine("|| Please select an option:                           ||");
-            Console.WriteLine("||                                                    ||");
-            Console.WriteLine("|| 1. Start Application                               ||");
-            Console.WriteLine("|| 2. Exit Application                                ||");
-            Console.WriteLine("||                                                    ||");
-            Console.WriteLine("========================================================");
+            Console.WriteLine("╔══════════════════════════════════════════════════════╗");
+            Console.WriteLine("║      WELCOME TO AIRLINE RESERVATION SYSTEM           ║");
+            Console.WriteLine("╠══════════════════════════════════════════════════════╣");
+            Console.WriteLine("║                                                      ║");
+            Console.WriteLine("║ Please select an option:                             ║");
+            Console.WriteLine("║                                                      ║");
+            Console.WriteLine("║ 1. Start Application                                 ║");
+            Console.WriteLine("║ 2. Exit Application                                  ║");
+            Console.WriteLine("║                                                      ║");
+            Console.WriteLine("╚══════════════════════════════════════════════════════╝");
             Console.Write("Enter your choice: ");
 
             int choice;
@@ -84,21 +85,21 @@ namespace AirlineReservationConsoleSystem_CSharp
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("========================================================");
-                Console.WriteLine("||               MAIN MENU - AIRLINE SYSTEM           ||");
-                Console.WriteLine("========================================================");
-                Console.WriteLine("||                                                    ||");
-                Console.WriteLine("|| 1. Add a New Flight                                ||");
-                Console.WriteLine("|| 2. View All Available Flights                      ||");
-                Console.WriteLine("|| 3. Find Flight by Code                             ||");
-                Console.WriteLine("|| 4. Update Flight Departure Time                    ||");
-                Console.WriteLine("|| 5. Cancel Flight Booking                           ||");
-                Console.WriteLine("|| 6. Book Flight                                     ||");
-                Console.WriteLine("|| 7. Display Flight Details                          ||");
-                Console.WriteLine("|| 8. Search Bookings by Destination                  ||");
-                Console.WriteLine("|| 0. Exit Application                                ||");
-                Console.WriteLine("||                                                    ||");
-                Console.WriteLine("========================================================");
+                Console.WriteLine("╔══════════════════════════════════════════════════════╗");
+                Console.WriteLine("║                MAIN MENU - AIRLINE SYSTEM            ║");
+                Console.WriteLine("╠══════════════════════════════════════════════════════╣");
+                Console.WriteLine("║                                                      ║");
+                Console.WriteLine("║ 1. Add a New Flight                                  ║");
+                Console.WriteLine("║ 2. View All Available Flights                        ║");
+                Console.WriteLine("║ 3. Find Flight by Code                               ║");
+                Console.WriteLine("║ 4. Update Flight Departure Time                      ║");
+                Console.WriteLine("║ 5. Cancel Flight Booking                             ║");
+                Console.WriteLine("║ 6. Book Flight                                       ║");
+                Console.WriteLine("║ 7. Display Flight Details                            ║");
+                Console.WriteLine("║ 8. Search Bookings by Destination                    ║");
+                Console.WriteLine("║ 0. Exit Application                                  ║");
+                Console.WriteLine("║                                                      ║");
+                Console.WriteLine("╚══════════════════════════════════════════════════════╝");
 
                 Console.Write("Enter your choice: ");
 
@@ -182,8 +183,13 @@ namespace AirlineReservationConsoleSystem_CSharp
                             break;
 
                         //find flight by code
-                        case 3: 
-                            Console.WriteLine("\n=== FIND FLIGHT BY CODE ===\n");
+                        case 3:
+
+                            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                            Console.WriteLine("║                 FIND FLIGHT BY CODE                    ║");
+                            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+
+                            Console.WriteLine("\n\n");
                             
                             string flightCodeToFind;
 
@@ -211,7 +217,11 @@ namespace AirlineReservationConsoleSystem_CSharp
 
                         //update flight departure
                         case 4:
-                            Console.WriteLine("\n=== UPDATE FLIGHT DEPARTURE ===\n");
+
+                            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                            Console.WriteLine("║               UPDATE FLIGHT DEPARTURE                  ║");
+                            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+                            Console.WriteLine("\n\n");
 
                             string flightCodeToUpdate;
                             do
@@ -246,7 +256,11 @@ namespace AirlineReservationConsoleSystem_CSharp
 
                         //cancel flight booking
                         case 5:
-                            Console.WriteLine("\n=== CANCEL FLIGHT BOOKING ===\n");
+
+                            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                            Console.WriteLine("║                 CANCEL FLIGHT BOOKING                  ║");
+                            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+                            Console.WriteLine("\n\n");
                             string passengerNameToCancel;
                             Console.Write("Enter Passenger Name: ");
                             passengerNameToCancel = Console.ReadLine();
@@ -261,7 +275,12 @@ namespace AirlineReservationConsoleSystem_CSharp
                         //book flight
                         case 6: 
                             string passengerName;
-                            Console.WriteLine("\n=== FLIGHT BOOKING ===\n");
+
+                            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                            Console.WriteLine("║                    FLIGHT BOOKING                      ║");
+                            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+                            Console.WriteLine("\n\n");
+
                             Console.Write("Enter Passenger Name: ");
                             passengerName = Console.ReadLine();
                             if (string.IsNullOrWhiteSpace(passengerName))
@@ -280,13 +299,15 @@ namespace AirlineReservationConsoleSystem_CSharp
                             {
                                 Console.WriteLine("\n Flight booking cancelled.");
                             }
-
-
-
                             break;
 
                         //display flight details
                         case 7:
+                            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                            Console.WriteLine("║                    FLIGHT DETAILS                      ║");
+                            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+                            Console.WriteLine("\n\n");
+
                             Console.WriteLine("\nEnter Flight Code to view details: ");
                             string codeToDisplay = Console.ReadLine().ToUpper();
                             DisplayFlightDetails(codeToDisplay);
@@ -294,7 +315,13 @@ namespace AirlineReservationConsoleSystem_CSharp
 
                         //search bookings by destination
                         case 8:
-                            Console.WriteLine("\n=== SEARCH BOOKINGS BY DESTINATION ===\n");
+
+                            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                            Console.WriteLine("║             SEARCH BOOKINGS BY DESTINATION             ║");
+                            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+                            Console.WriteLine("\n\n");
+
+                            
                             Console.Write("Enter Destination City: ");
                             string destinationCity = Console.ReadLine().ToUpper();
                             SearchBookingsByDestination(destinationCity);
@@ -327,10 +354,10 @@ namespace AirlineReservationConsoleSystem_CSharp
         public static void ExitApplication()
         {
             Console.Clear();
-            Console.WriteLine("========================================================");
-            Console.WriteLine("||               THANK YOU FOR USING                   ||");
-            Console.WriteLine("||          AIRLINE RESERVATION SYSTEM                 ||");
-            Console.WriteLine("========================================================");
+            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                  THANK YOU FOR USING                   ║");
+            Console.WriteLine("║              AIRLINE RESERVATION SYSTEM                ║");
+            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
             Console.WriteLine("\nExiting the application...");
             Environment.Exit(0);
 
@@ -459,7 +486,11 @@ namespace AirlineReservationConsoleSystem_CSharp
             try
             {
                 Console.Clear();
-                Console.WriteLine("\n=== UPDATE FLIGHT DEPARTURE ===\n");
+
+                Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                Console.WriteLine("║                 UPDATE FLIGHT DEPARTURE                ║");
+                Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+                Console.WriteLine("\n\n");
 
                 // Display current departure time
                 Console.WriteLine($"Current departure time: {departure.ToString("yyyy-MM-dd HH:mm")}");
@@ -586,7 +617,11 @@ namespace AirlineReservationConsoleSystem_CSharp
 
 
                         // Show price breakdown
-                        Console.WriteLine("\n=== PRICE BREAKDOWN ===");
+
+                        Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+                        Console.WriteLine("║                    PRICE BREAKDOWN                     ║");
+                        Console.WriteLine("╠════════════════════════════════════════════════════════╣");
+                        
                         Console.WriteLine($"Base Price: {basePrice:C} x {numTickets}");
                         if (discountApplied > 0)
                         {
@@ -595,6 +630,7 @@ namespace AirlineReservationConsoleSystem_CSharp
                         }
 
                         Console.WriteLine($"Total Price: {totalPrice:C}");
+                        Console.WriteLine("╚════════════════════════════════════════════════════════╝");
 
                         if (ConfirmAction("confirm this booking"))
                         {
@@ -755,8 +791,15 @@ namespace AirlineReservationConsoleSystem_CSharp
         /* -------------------------- System Utilities -------------------------- */
         static bool ConfirmAction(string action)
         {
-            
-            Console.WriteLine($"Are you sure you want to {action}? (Y/N)");
+
+            Console.WriteLine("╔════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                                                        ║");
+            Console.WriteLine($"║Are you sure you want to {action}? (Y/N)              ");
+            Console.WriteLine("║                                                        ║");
+            Console.WriteLine("╚════════════════════════════════════════════════════════╝");
+            Console.WriteLine("\n\n");
+
+          
             char keyInfo = Console.ReadKey().KeyChar;
 
             // Check if user pressed Y/y (Yes) or N/n (No)
@@ -784,6 +827,9 @@ namespace AirlineReservationConsoleSystem_CSharp
         {
             DisplayWelcomeMessage();
         }
+
+
+
 
     }
 }
