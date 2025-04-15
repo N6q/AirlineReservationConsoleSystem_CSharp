@@ -257,19 +257,24 @@ namespace AirlineReservationConsoleSystem_CSharp
                         //cancel flight booking
                         case 5:
 
+                            Console.Clear();
                             Console.WriteLine("╔════════════════════════════════════════════════════════╗");
                             Console.WriteLine("║                 CANCEL FLIGHT BOOKING                  ║");
                             Console.WriteLine("╚════════════════════════════════════════════════════════╝");
-                            Console.WriteLine("\n\n");
-                            string passengerNameToCancel;
+                            Console.WriteLine("\n");
+
                             Console.Write("Enter Passenger Name: ");
-                            passengerNameToCancel = Console.ReadLine();
-                            if (string.IsNullOrWhiteSpace(passengerNameToCancel))
+                            string passengerName1 = Console.ReadLine();
+
+                            if (string.IsNullOrWhiteSpace(passengerName1))
                             {
-                                Console.WriteLine("Invalid name. Please try again.");
-                                break;
+                                Console.WriteLine("\nInvalid name. Please try again.");
+                                Console.WriteLine("Press Enter to return to the main menu...");
+                                Console.ReadLine();
+                                return 0;
                             }
-                            CancelFlightBooking(out passengerNameToCancel);
+
+                            CancelFlightBooking(passengerName1);
                             break;
 
                         //book flight
@@ -534,36 +539,44 @@ namespace AirlineReservationConsoleSystem_CSharp
             Console.ReadLine();
         }
 
-        public static void CancelFlightBooking(out string passengerName)
-        {
-            Console.WriteLine("\n=== CANCEL FLIGHT BOOKING ===\n");
-            Console.Write("Enter Passenger Name: ");
-            passengerName = Console.ReadLine();
-            // Check if the booking exists
-            for (int i = 0; i < flightCount; i++)
+    
+        static void CancelFlightBooking(string passengerName1)
             {
-                if (passengerNames[i] == passengerName)
-                {
-                    // Confirm cancellation
-                    if (ConfirmAction($"cancel booking for {passengerName}"))
-                    {
-                        // Cancel the booking
-                        passengerNames[i] = null;
-                        bookingIDs[i] = null;
-                        totalPrices[i] = 0;
-                        bookingCount--;
-                        Console.WriteLine($"\n Booking for {passengerName} cancelled successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("\n✗ Booking cancellation cancelled.");
-                    }
-                    return;
-                }
-            }
-            Console.WriteLine($"\nBooking not found for {passengerName}.");
+                bool found = false;
 
-        }
+                for (int i = 0; i < flightCount; i++)
+                {
+                    if (passengerNames[i] == passengerName1)
+                    {
+                        found = true;
+
+                        if (ConfirmAction($"cancel booking for {passengerName1}"))
+                        {
+                            // Cancel the booking
+                            passengerNames[i] = null;
+                            bookingIDs[i] = null;
+                            totalPrices[i] = 0;
+                            bookingCount--;
+
+                            Console.WriteLine($"\nBooking for {passengerName1} cancelled successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nBooking cancellation cancelled.");
+                        }
+                        return;
+                    }
+                }
+
+                if (!found)
+                {
+                    Console.WriteLine($"\nBooking not found for {passengerName1}.");
+                }
+
+                Console.WriteLine("\nPress Enter to return to the main menu...");
+                Console.ReadLine();
+            }
+        
 
         /* -------------------------- Passenger Booking Functions -------------------------- */
         public static void BookFlight(string passengerName, string flightCode = "Default001")
