@@ -6,25 +6,25 @@ namespace AirlineReservationConsoleSystem_CSharp
     internal class Program
     {
         // Global variables and data storage
-        private const int MAX_FLIGHTS = 2; // Maximum number of flights the system can handle
-        private const int MAX_BOOKINGS = 2; // Maximum number of bookings the system can handle
+        private static int MAX_FLIGHTS = 2; // Maximum number of flights the system can handle
+        private static int MAX_BOOKINGS = 2; // Maximum number of bookings the system can handle
 
         // Arrays to store flight-related information
-        private static readonly string[] flightCodes = new string[MAX_FLIGHTS];
-        private static readonly string[] fromCity = new string[MAX_FLIGHTS];
-        private static readonly string[] toCity = new string[MAX_FLIGHTS];
-        private static readonly DateTime[] departureTimes = new DateTime[MAX_FLIGHTS];
-        private static readonly int[] durations = new int[MAX_FLIGHTS];
-        private static readonly double[] prices = new double[MAX_FLIGHTS];
+        private static string[] flightCodes = new string[MAX_FLIGHTS];
+        private static string[] fromCity = new string[MAX_FLIGHTS];
+        private static string[] toCity = new string[MAX_FLIGHTS];
+        private static DateTime[] departureTimes = new DateTime[MAX_FLIGHTS];
+        private static int[] durations = new int[MAX_FLIGHTS];
+        private static double[] prices = new double[MAX_FLIGHTS];
 
         // Arrays to store booking-related information
-        private static readonly string[] passengerNames = new string[MAX_BOOKINGS];
-        private static readonly string[] bookingIDs = new string[MAX_BOOKINGS];
-        private static readonly double[] totalPrices = new double[MAX_BOOKINGS];
+        private static string[] passengerNames = new string[MAX_BOOKINGS];
+        private static string[] bookingIDs = new string[MAX_BOOKINGS];
+        private static double[] totalPrices = new double[MAX_BOOKINGS];
 
         // Discount codes and their corresponding discount values
-        private static readonly string[] discountCodes = { "SAVE10", "SAVE20", "SAVE15" };
-        private static readonly double[] discountValues = { 0.10, 0.20, 0.15 };
+        private static string[] discountCodes = { "SAVE10", "SAVE20", "SAVE15" };
+        private static double[] discountValues = { 0.10, 0.20, 0.15 };
 
         // Counters to track the number of flights and bookings
         private static int flightCount = 0;
